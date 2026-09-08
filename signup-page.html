@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;color:#fff;
+  background:radial-gradient(circle at top left,rgba(99,102,241,.28),transparent 35%),
+             radial-gradient(circle at bottom right,rgba(14,165,233,.22),transparent 35%),
+             linear-gradient(135deg,#07111f,#0f172a 60%,#111827)
+}
+.card{
+  width:100%;max-width:470px;padding:34px;border-radius:24px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(18px);box-shadow:0 24px 70px rgba(0,0,0,.38)
+}
+.logo{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px;
+  font-size:24px;font-weight:800;background:linear-gradient(135deg,#6366f1,#0ea5e9)
+}
+h1{font-size:30px;margin-bottom:8px}
+.subtitle{color:#b7c0d1;margin-bottom:26px;line-height:1.5}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:17px}
+label{display:block;font-size:14px;margin-bottom:8px;color:#dbe4f0}
+input{
+  width:100%;height:50px;border:1px solid rgba(255,255,255,.15);border-radius:14px;
+  padding:0 15px;color:#fff;background:rgba(255,255,255,.07);outline:none
+}
+input:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.12)}
+input::placeholder{color:#8190a7}
+.password-wrap{position:relative}
+.toggle{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  border:0;background:transparent;color:#a5b4fc;cursor:pointer;font-size:13px
+}
+.terms{display:flex;align-items:flex-start;gap:9px;margin:4px 0 20px;color:#b7c0d1;font-size:13px;line-height:1.45}
+.terms input{width:16px;height:16px;margin-top:2px;accent-color:#6366f1}
+a{color:#8ab4ff;text-decoration:none}
+a:hover{text-decoration:underline}
+.submit{
+  width:100%;height:52px;border:0;border-radius:14px;color:#fff;font-size:15px;font-weight:700;
+  cursor:pointer;background:linear-gradient(135deg,#6366f1,#0ea5e9)
+}
+.divider{display:flex;align-items:center;gap:12px;margin:24px 0;color:#78869d;font-size:12px}
+.divider:before,.divider:after{content:"";flex:1;height:1px;background:rgba(255,255,255,.12)}
+.google{
+  width:100%;height:50px;border-radius:14px;border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-weight:600
+}
+.footer{text-align:center;color:#9aa7bb;margin-top:24px;font-size:14px}
+.message{display:none;margin-top:16px;padding:12px;border-radius:12px;font-size:13px}
+.success{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.28);color:#bbf7d0}
+.error{display:block;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.28);color:#fecaca}
+@media(max-width:540px){.card{padding:26px 20px}.row{grid-template-columns:1fr;gap:0}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="logo">S</div>
+  <h1>Create account</h1>
+  <p class="subtitle">Register to get started with your account.</p>
+
+  <form id="signupForm">
+    <div class="row">
+      <div class="field">
+        <label for="firstName">First name</label>
+        <input id="firstName" type="text" placeholder="First name" required>
+      </div>
+      <div class="field">
+        <label for="lastName">Last name</label>
+        <input id="lastName" type="text" placeholder="Last name" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" type="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="field">
+      <label for="phone">Phone number</label>
+      <input id="phone" type="tel" placeholder="+91 98765 43210">
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <div class="password-wrap">
+        <input id="password" type="password" placeholder="Create a password" minlength="6" required>
+        <button class="toggle" type="button" data-target="password">Show</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="confirmPassword">Confirm password</label>
+      <div class="password-wrap">
+        <input id="confirmPassword" type="password" placeholder="Re-enter password" minlength="6" required>
+        <button class="toggle" type="button" data-target="confirmPassword">Show</button>
+      </div>
+    </div>
+
+    <label class="terms">
+      <input id="terms" type="checkbox" required>
+      <span>I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.</span>
+    </label>
+
+    <button class="submit" type="submit">Create account</button>
+    <div id="message" class="message"></div>
+  </form>
+
+  <div class="divider">OR</div>
+  <button class="google" type="button">Continue with Google</button>
+
+  <p class="footer">Already have an account? <a href="login-page.html">Sign in</a></p>
+</main>
+
+<script>
+document.querySelectorAll(".toggle").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const input=document.getElementById(btn.dataset.target);
+    const hidden=input.type==="password";
+    input.type=hidden?"text":"password";
+    btn.textContent=hidden?"Hide":"Show";
+  });
+});
+
+document.getElementById("signupForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const p=document.getElementById("password").value;
+  const c=document.getElementById("confirmPassword").value;
+  const msg=document.getElementById("message");
+  if(p!==c){
+    msg.className="message error";
+    msg.textContent="Passwords do not match.";
+    return;
+  }
+  msg.className="message success";
+  msg.textContent="Account created successfully!";
+});
+</script>
+</body>
+</html>
